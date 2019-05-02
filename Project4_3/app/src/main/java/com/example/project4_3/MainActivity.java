@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("간단한 계산기");
+        setTitle("Simple Calculator");
 
         edit1 = findViewById(R.id.Edit1);
         edit2 = findViewById(R.id.Edit2);
@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-                if (num1.equals("숫자1") || num2.equals("숫자2")) {
+                if (num1.equals("숫자1") || num1.equals("") || num2.equals("숫자2") || num2.equals("")) {
                     Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_LONG).show();
+                } else {
+                    result = Double.parseDouble(num1) + Double.parseDouble(num2);
+                    textResult.setText(String.valueOf("계산결과: " + result));
                 }
-                result = Double.parseDouble(num1) + Double.parseDouble(num2);
-                textResult.setText(String.valueOf("계산결과: " + result));
             }
         });
 
@@ -54,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
 
-                result = Double.parseDouble(num1) - Double.parseDouble(num2);
-                textResult.setText(String.valueOf("계산결과: " + result));
+                if (num1.equals("숫자1") || num1.equals("") || num2.equals("숫자2") || num2.equals("")) {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_LONG).show();
+                } else {
+                    result = Double.parseDouble(num1) - Double.parseDouble(num2);
+                    textResult.setText(String.valueOf("계산결과: " + result));
+                }
             }
         });
 
@@ -65,8 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
 
-                result = Double.parseDouble(num1) * Double.parseDouble(num2);
-                textResult.setText(String.valueOf("계산결과: " + result));
+                if (num1.equals("숫자1") || num1.equals("") || num2.equals("숫자2") || num2.equals("")) {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_LONG).show();
+                } else {
+                    result = Double.parseDouble(num1) * Double.parseDouble(num2);
+                    textResult.setText(String.valueOf("계산결과: " + result));
+                }
             }
         });
 
@@ -76,8 +85,20 @@ public class MainActivity extends AppCompatActivity {
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
 
-                result = Double.parseDouble(num1) / Double.parseDouble(num2);
-                textResult.setText(String.valueOf("계산결과: " + result));
+                try {
+                    if (num1.equals("숫자1") || num1.equals("") || num2.equals("숫자2") || num2.equals("")) {
+                        Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        result = Double.parseDouble(num1) / Double.parseDouble(num2);
+                        if (Double.isInfinite(result) || Double.isNaN(result))
+                            throw new ArithmeticException();
+
+                        textResult.setText(String.valueOf("계산결과: " + result));
+                    }
+                } catch (java.lang.ArithmeticException e) {
+                        Toast.makeText(getApplicationContext(), "0으로 나눌 수 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -87,8 +108,20 @@ public class MainActivity extends AppCompatActivity {
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
 
-                result = Double.parseDouble(num1) % Double.parseDouble(num2);
-                textResult.setText(String.valueOf("계산결과: " + result));
+                try {
+                    if (num1.equals("숫자1") || num1.equals("") || num2.equals("숫자2") || num2.equals("")) {
+                        Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        result = Double.parseDouble(num1) % Double.parseDouble(num2);
+                        if (Double.isInfinite(result) || Double.isNaN(result))
+                            throw new ArithmeticException();
+
+                        textResult.setText(String.valueOf("계산결과: " + result));
+                    }
+                } catch (java.lang.ArithmeticException e) {
+                    Toast.makeText(getApplicationContext(), "0으로 나눌 수 없습니다.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
